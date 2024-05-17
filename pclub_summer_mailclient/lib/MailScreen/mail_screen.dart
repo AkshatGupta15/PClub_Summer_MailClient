@@ -5,7 +5,7 @@ import 'package:pclub_summer_mailclient/model/data.dart';
 
 
 class MailDetailScreen extends StatelessWidget {
-  MailDetailScreen({required this.heading,required this.mail,required this.time});
+  MailDetailScreen({super.key, required this.heading,required this.mail,required this.time});
   final String heading, mail, time;
   final List<String> menuTabItems = [
     "Move to",
@@ -30,9 +30,9 @@ class MailDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 242, 225, 246),
+        backgroundColor: const Color.fromARGB(255, 242, 225, 246),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           iconSize: 24,
           color: Colors.black54,
           onPressed: () {
@@ -41,19 +41,19 @@ class MailDetailScreen extends StatelessWidget {
         ),
         actions: [
           IconButton(
-            icon: Icon(Icons.archive_outlined),
+            icon: const Icon(Icons.archive_outlined),
             iconSize: 24,
             color: Colors.black54,
             onPressed: () {},
           ),
           IconButton(
-            icon: Icon(Icons.delete),
+            icon: const Icon(Icons.delete),
             iconSize: 24,
             color: Colors.black54,
             onPressed: () {},
           ),
           IconButton(
-            icon: Icon(Icons.email),
+            icon: const Icon(Icons.email),
             iconSize: 24,
             color: Colors.black54,
             onPressed: () {},
@@ -61,15 +61,15 @@ class MailDetailScreen extends StatelessWidget {
           InkWell(
             child: PopupMenuButton(
               iconSize: 24,
-              icon: Icon(
+              icon: const Icon(
                 Icons.more_vert_rounded,
                 color: Colors.black54,
               ),
               itemBuilder: (context) => menuTabItems
                   .map(
                     (itemName) => PopupMenuItem(
-                      child: Text(itemName),
                       value: itemName,
+                      child: Text(itemName),
                     ),
                   )
                   .toList(),
@@ -86,7 +86,7 @@ class MailDetailScreen extends StatelessWidget {
               children: [
                 Expanded(
                   flex: 1,
-                  child: Container(
+                  child: SizedBox(
                     width: mySize - 10,
                     child: Text(
                       heading,
@@ -98,7 +98,7 @@ class MailDetailScreen extends StatelessWidget {
                   ),
                 ),
                 IconButton(
-                  icon: Icon(Icons.star_border),
+                  icon: const Icon(Icons.star_border),
                   onPressed: () {},
                 ),
               ],
@@ -123,15 +123,15 @@ class MailDetailScreen extends StatelessWidget {
                         children: [
                           Text(
                             mail,
-                            style: TextStyle(fontSize: 15),
+                            style: const TextStyle(fontSize: 15),
                           ),
                           Text(
                             time,
-                            style: TextStyle(fontSize: 13),
+                            style: const TextStyle(fontSize: 13),
                           ),
                         ],
                       ),
-                      Row(
+                      const Row(
                         children: [
                           Text(
                             'to me',
@@ -147,19 +147,19 @@ class MailDetailScreen extends StatelessWidget {
                     ],
                   ),
                 ),
-                IconButton(icon: Icon(Icons.keyboard_return), onPressed: () {}),
+                IconButton(icon: const Icon(Icons.keyboard_return), onPressed: () {}),
                 InkWell(
                   child: PopupMenuButton(
                     iconSize: 24,
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.more_vert_rounded,
                       color: Colors.black54,
                     ),
                     itemBuilder: (context) => menuMailItems
                         .map(
                           (itemName) => PopupMenuItem(
-                            child: Text(itemName),
                             value: itemName,
+                            child: Text(itemName),
                           ),
                         )
                         .toList(),
@@ -173,7 +173,7 @@ class MailDetailScreen extends StatelessWidget {
             padding: EdgeInsets.all(kPadding!),
             child: Text(
               mailText,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 14,
                 color: Colors.black54,
               ),
@@ -189,8 +189,8 @@ class MailDetailScreen extends StatelessWidget {
                   // primary: Colors.black54,
                 ),
                 onPressed: () {},
-                icon: Icon(Icons.reply),
-                label: Text('Reply'),
+                icon: const Icon(Icons.reply),
+                label: const Text('Reply'),
               ),
               TextButton.icon(
                 style: TextButton.styleFrom(
@@ -198,8 +198,8 @@ class MailDetailScreen extends StatelessWidget {
                   // primary: Colors.black54,
                 ),
                 onPressed: () {},
-                icon: Icon(Icons.reply_all),
-                label: Text('Reply all'),
+                icon: const Icon(Icons.reply_all),
+                label: const Text('Reply all'),
               ),
               TextButton.icon(
                 style: TextButton.styleFrom(
@@ -210,9 +210,9 @@ class MailDetailScreen extends StatelessWidget {
                 icon: Transform(
                   transform: Matrix4.rotationY(pi),
                   alignment: Alignment.center,
-                  child: Icon(Icons.reply),
+                  child: const Icon(Icons.reply),
                 ),
-                label: Text('Forward'),
+                label: const Text('Forward'),
               )
             ],
           )

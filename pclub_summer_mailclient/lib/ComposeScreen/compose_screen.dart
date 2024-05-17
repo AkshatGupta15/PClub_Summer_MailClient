@@ -14,7 +14,7 @@ class ComposeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Color.fromARGB(255, 242, 225, 246),
+          backgroundColor: const Color.fromARGB(255, 242, 225, 246),
           leading: IconButton(
             icon: const Icon(Icons.arrow_back),
             iconSize: 24,
@@ -50,8 +50,8 @@ class ComposeScreen extends StatelessWidget {
                 itemBuilder: (context) => menuTabItems
                     .map(
                       (itemName) => PopupMenuItem(
-                        child: Text(itemName),
                         value: itemName,
+                        child: Text(itemName),
                       ),
                     )
                     .toList(),
