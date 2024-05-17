@@ -15,7 +15,7 @@ class _SignUpPageState extends State<SignupPage>{
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: const Text("IITK MailClinet"),
+        // title: const Text("IITK MailClinet"),
       ),
       body: Center(
         child: Padding(
@@ -42,13 +42,13 @@ class _SignUpPageState extends State<SignupPage>{
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text("Don't Have an account?"),
+                  const Text("Already Have an account?"),
                   TextButton(
                       onPressed: () {
                         // print("CLicked");
                       },
                       child: const Text(
-                        "SignUp",
+                        "Login",
                         style:
                             TextStyle(color: Color.fromARGB(255, 36, 13, 242)),
                       ))

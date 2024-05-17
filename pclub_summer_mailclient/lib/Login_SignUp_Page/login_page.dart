@@ -17,7 +17,7 @@ class _LoginPageState extends State<LoginPage> {
       appBar: AppBar(
         backgroundColor: Colors.transparent, // Make app bar transparent
         // elevation: 0,
-        title: const Text("IITK MailClinet"),
+        // title: const Text("IITK MailClinet"),
       ),
       body: DecoratedBox(
         decoration: const BoxDecoration(

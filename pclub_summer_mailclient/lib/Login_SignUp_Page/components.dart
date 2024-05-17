@@ -42,7 +42,7 @@ class LoginButton extends StatelessWidget{
 Navigator.pushReplacementNamed(context, "/${routeName.toLowerCase()}"); 
                 }, 
                 child:  Text(
-                  routeName,
+                  routeName == "SignUp" ?  "Login" : "SignUp" ,
                   style: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w600,
