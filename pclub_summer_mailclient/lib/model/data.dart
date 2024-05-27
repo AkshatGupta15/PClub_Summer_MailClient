@@ -9,6 +9,7 @@ class MailItem {
       required this.isRead});
 }
 
+
 List<MailItem> mailList = [
   MailItem(
       title: "Microsoft",

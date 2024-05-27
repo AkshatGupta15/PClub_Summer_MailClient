@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pclub_summer_mailclient/getMails/mail.dart';
 import 'package:pclub_summer_mailclient/model/data.dart';
 
 class ComposeScreen extends StatelessWidget {
@@ -12,6 +13,36 @@ class ComposeScreen extends StatelessWidget {
   ];
   @override
   Widget build(BuildContext context) {
+    var toEmail = TextEditingController();
+    var subject = TextEditingController();
+    var body = TextEditingController();
+
+    void _sendMail(BuildContext context, TextEditingController toEmail, TextEditingController subject, TextEditingController body) async {
+  print("Email ${toEmail.text}, Body ${body.text} Subject ${subject.text}");
+  bool result = await sendMail(to: toEmail.text, subject: subject.text, body: body.text);
+
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text(result ? "Sent Mail" : "Failed to Send Mail"),
+        content: Text(result ? "Email sent successfully!" : "There was an error sending the email."),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: const Text('OK'),
+          ),
+        ],
+      );
+    },
+  );
+
+  toEmail.clear();
+  body.clear();
+  subject.clear();
+}
     return Scaffold(
         appBar: AppBar(
           backgroundColor: const Color.fromARGB(255, 242, 225, 246),
@@ -38,7 +69,9 @@ class ComposeScreen extends StatelessWidget {
               icon: const Icon(Icons.send),
               iconSize: 24,
               color: Colors.black54,
-              onPressed: () {},
+              onPressed: () {
+                _sendMail(context,toEmail,subject,body);
+              },
             ),
             InkWell(
               child: PopupMenuButton(
@@ -59,13 +92,12 @@ class ComposeScreen extends StatelessWidget {
             ),
           ],
         ),
-        body: InkWell(
-          onTap: () {
-            FocusScope.of(context).requestFocus(FocusNode());
-          },
+        body: Padding(
+          padding: const EdgeInsets.all(8.0),
           child: Column(
             children: [
               TextField(
+                enabled: false,
                 decoration: InputDecoration(
                   contentPadding: EdgeInsets.symmetric(vertical: kPadding!),
                   prefixIcon: Padding(
@@ -78,7 +110,7 @@ class ComposeScreen extends StatelessWidget {
                       style: TextStyle(color: Colors.black54, fontSize: 16),
                     ),
                   ),
-                  hintText: 'example@mail.com',
+                  hintText: 'akshat23@iitk.ac.in',
                   suffixIcon: IconButton(
                     icon:const Icon(Icons.expand_more),
                     color: Colors.black54,
@@ -87,6 +119,7 @@ class ComposeScreen extends StatelessWidget {
                 ),
               ),
               TextField(
+                controller: toEmail,
                 decoration: InputDecoration(
                   contentPadding: EdgeInsets.symmetric(vertical: kPadding!- 4),
                   prefixIcon: Padding(
@@ -107,15 +140,18 @@ class ComposeScreen extends StatelessWidget {
                 ),
               ),
               TextField(
+                controller: subject,
                 decoration: InputDecoration(
                   contentPadding: EdgeInsets.only(
                       top: kPadding!- 10,
                       left: kPadding!- 10,
-                      right: kPadding! - 10),
+                      right: kPadding! - 10,
+                      bottom: kPadding! - 10),
                   hintText: 'Subject',
                 ),
               ),
               TextField(
+                controller: body,
                 decoration: InputDecoration(
                   contentPadding: EdgeInsets.only(
                       top: kPadding! - 10,

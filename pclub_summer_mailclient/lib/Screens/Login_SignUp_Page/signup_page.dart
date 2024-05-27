@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pclub_summer_mailclient/Login_SignUp_Page/components.dart';
+import 'package:pclub_summer_mailclient/Screens/Login_SignUp_Page/components.dart';
 // import 'package:flutter_svg/flutter_svg.dart';
 // import 'assets/images/loog.png';
 class SignupPage extends StatefulWidget{

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-
 import 'package:pclub_summer_mailclient/model/data.dart';
 
 
-class Header extends StatelessWidget {
-  const Header({
+class HeaderBar extends StatelessWidget {
+  final VoidCallback onMenuPressed;
+  HeaderBar({
     super.key,
+    required this.onMenuPressed,
   });
 
   @override
@@ -30,7 +31,7 @@ class Header extends StatelessWidget {
           IconButton(
             onPressed: (){
               print("Clicked");
-              // HomeScreen().openDrawerHome();
+              onMenuPressed();
               // HomeScreen().scaffoldKey.currentState?.openDrawer();
             }
             ,

@@ -20,6 +20,8 @@ final username = TextField(
 
 final password = TextField(
   obscureText: true,
+  enableSuggestions: false,
+  autocorrect: false,
   autofocus: false,
   keyboardType: TextInputType.emailAddress,
   decoration: InputDecoration(
