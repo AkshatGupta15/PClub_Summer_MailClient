@@ -1,12 +1,15 @@
 import 'dart:math';
 
+import 'package:enough_mail/enough_mail.dart';
 import 'package:flutter/material.dart';
 import 'package:pclub_summer_mailclient/model/data.dart';
 
 
 class MailDetailScreen extends StatelessWidget {
-  MailDetailScreen({super.key, required this.heading,required this.mail,required this.time});
-  final String heading, mail, time;
+  // MailDetailScreen({super.key, required this.heading,required this.mail,required this.time});
+  MailDetailScreen({super.key, required this.message});
+  final MimeMessage message;
+  
   final List<String> menuTabItems = [
     "Move to",
     "Snooze",
@@ -24,10 +27,15 @@ class MailDetailScreen extends StatelessWidget {
     "Mark unread from here",
     "Block GitHub",
   ];
-  final String mailText =
-      '1.Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs. The passage is attributed to an unknown typesetter in the 15th century who is thought to have scrambled parts of Cicero\'s De Finibus Bonorum et Malorum for use in a type specimen book. It usually begins with.\n\n2.The purpose of lorem ipsum is to create a natural looking block of text (sentence, paragraph, page, etc.) that doesn\'t distract from the layout. A practice not without controversy, laying out pages with meaningless filler text can be very useful when the focus is meant to be on design, not content.\n\n3.The passage experienced a surge in popularity during the 1960s when Letraset used it on their dry-transfer sheets, and again during the 90s as desktop publishers bundled the text with their software. Today it\'s seen all around the web; on templates, websites, and stock designs.';
   @override
   Widget build(BuildContext context) {
+    RegExp regex = RegExp(r'"([^"]+)"');
+    String? fullName = regex.firstMatch(message.from.toString())?.group(1);
+    final heading = message.from.toString();
+    final  mailText = message.decodeTextPlainPart()!.split('\r\n');
+    // final String mailText =
+    // final avatarText = mail.substring(0, 1);
+    final avatarText = "A";
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 242, 225, 246),
@@ -77,146 +85,148 @@ class MailDetailScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: Column(
-        children: [
-          //-------------Title Widget
-          Padding(
-            padding: EdgeInsets.all(kPadding!),
-            child: Row(
-              children: [
-                Expanded(
-                  flex: 1,
-                  child: SizedBox(
-                    width: mySize - 10,
-                    child: Text(
-                      heading,
-                      style: TextStyle(
-                          color: Colors.black87.withOpacity(0.8), fontSize: 17),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            //-------------Title Widget
+            Padding(
+              padding: EdgeInsets.all(kPadding!),
+              child: Row(
+                children: [
+                  Expanded(
+                    flex: 1,
+                    child: SizedBox(
+                      width: mySize - 10,
+                      child: Text(
+                        message.decodeSubject()!,
+                        style: TextStyle(
+                            color: Colors.black87.withOpacity(0.8), fontSize: 17),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
                   ),
-                ),
-                IconButton(
-                  icon: const Icon(Icons.star_border),
-                  onPressed: () {},
-                ),
-              ],
+                  IconButton(
+                    icon: const Icon(Icons.star_border),
+                    onPressed: () {},
+                  ),
+                ],
+              ),
             ),
-          ),
-
-          //-----------Mail Heading Widget
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: kPadding!),
-            child: Row(
-              children: [
-                CircleAvatar(
-                  child: Text(mail.substring(0, 1)),
-                ),
-                SizedBox(width: kPadding! - 12),
-                Expanded(
-                  flex: 1,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          Text(
-                            mail,
-                            style: const TextStyle(fontSize: 15),
-                          ),
-                          Text(
-                            time,
-                            style: const TextStyle(fontSize: 13),
-                          ),
-                        ],
-                      ),
-                      const Row(
-                        children: [
-                          Text(
-                            'to me',
-                            style: TextStyle(
-                              fontSize: 14,
+        
+            //-----------Mail Heading Widget
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: kPadding!),
+              child: Row(
+                children: [
+                  CircleAvatar(
+                    child: Text(avatarText),
+                  ),
+                  SizedBox(width: kPadding! - 12),
+                  Expanded(
+                    flex: 1,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            Text(
+                              fullName!,
+                              style: const TextStyle(fontSize: 15),
                             ),
-                          ),
-                          Icon(
-                            Icons.expand_more,
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-                IconButton(icon: const Icon(Icons.keyboard_return), onPressed: () {}),
-                InkWell(
-                  child: PopupMenuButton(
-                    iconSize: 24,
-                    icon: const Icon(
-                      Icons.more_vert_rounded,
-                      color: Colors.black54,
+                            // Text(
+                            //   time,
+                            //   style: const TextStyle(fontSize: 13),
+                            // ),
+                          ],
+                        ),
+                        const Row(
+                          children: [
+                            Text(
+                              'to me',
+                              style: TextStyle(
+                                fontSize: 14,
+                              ),
+                            ),
+                            Icon(
+                              Icons.expand_more,
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
-                    itemBuilder: (context) => menuMailItems
-                        .map(
-                          (itemName) => PopupMenuItem(
-                            value: itemName,
-                            child: Text(itemName),
-                          ),
-                        )
-                        .toList(),
                   ),
+                  IconButton(icon: const Icon(Icons.keyboard_return), onPressed: () {}),
+                  InkWell(
+                    child: PopupMenuButton(
+                      iconSize: 24,
+                      icon: const Icon(
+                        Icons.more_vert_rounded,
+                        color: Colors.black54,
+                      ),
+                      itemBuilder: (context) => menuMailItems
+                          .map(
+                            (itemName) => PopupMenuItem(
+                              value: itemName,
+                              child: Text(itemName),
+                            ),
+                          )
+                          .toList(),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            //-----------------------Mail Info/Content
+            Padding(
+              padding: EdgeInsets.all(kPadding!),
+              child: Text(
+          mailText.where((line) => !line.startsWith('>')).join('\n'),
+          style: const TextStyle(
+            fontSize: 14,
+            color: Colors.black54,
+          ),
+        ),
+            ),
+            //-----------------------Last Three Buttons
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                TextButton.icon(
+                  style: TextButton.styleFrom(
+                    backgroundColor: Colors.black.withOpacity(0.06),
+                    // primary: Colors.black54,
+                  ),
+                  onPressed: () {},
+                  icon: const Icon(Icons.reply),
+                  label: const Text('Reply'),
                 ),
+                TextButton.icon(
+                  style: TextButton.styleFrom(
+                    backgroundColor: Colors.black.withOpacity(0.06),
+                    // primary: Colors.black54,
+                  ),
+                  onPressed: () {},
+                  icon: const Icon(Icons.reply_all),
+                  label: const Text('Reply all'),
+                ),
+                TextButton.icon(
+                  style: TextButton.styleFrom(
+                    backgroundColor: Colors.black.withOpacity(0.06),
+                    // primary: Colors.black54,
+                  ),
+                  onPressed: () {},
+                  icon: Transform(
+                    transform: Matrix4.rotationY(pi),
+                    alignment: Alignment.center,
+                    child: const Icon(Icons.reply),
+                  ),
+                  label: const Text('Forward'),
+                )
               ],
-            ),
-          ),
-          //-----------------------Mail Info/Content
-          Padding(
-            padding: EdgeInsets.all(kPadding!),
-            child: Text(
-              mailText,
-              style: const TextStyle(
-                fontSize: 14,
-                color: Colors.black54,
-              ),
-            ),
-          ),
-          //-----------------------Last Three Buttons
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              TextButton.icon(
-                style: TextButton.styleFrom(
-                  backgroundColor: Colors.black.withOpacity(0.06),
-                  // primary: Colors.black54,
-                ),
-                onPressed: () {},
-                icon: const Icon(Icons.reply),
-                label: const Text('Reply'),
-              ),
-              TextButton.icon(
-                style: TextButton.styleFrom(
-                  backgroundColor: Colors.black.withOpacity(0.06),
-                  // primary: Colors.black54,
-                ),
-                onPressed: () {},
-                icon: const Icon(Icons.reply_all),
-                label: const Text('Reply all'),
-              ),
-              TextButton.icon(
-                style: TextButton.styleFrom(
-                  backgroundColor: Colors.black.withOpacity(0.06),
-                  // primary: Colors.black54,
-                ),
-                onPressed: () {},
-                icon: Transform(
-                  transform: Matrix4.rotationY(pi),
-                  alignment: Alignment.center,
-                  child: const Icon(Icons.reply),
-                ),
-                label: const Text('Forward'),
-              )
-            ],
-          )
-        ],
+            )
+          ],
+        ),
       ),
     );
   }

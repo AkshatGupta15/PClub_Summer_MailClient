@@ -24,9 +24,9 @@ Widget build(BuildContext context) {
     theme: ThemeData(primarySwatch: Colors.cyan),
     debugShowCheckedModeBanner: false,
     routes: {
-      // '/': (context) => const LoginPage(),
-      '/': (context) =>  HomeScreen(),
-      // "/" : (context) => const LoginPage(),
+      '/': (context) => const LoginPage(),
+      // '/': (context) =>  HomeScreen(),
+      "/home" : (context) =>  HomeScreen(),
       '/login': (context) => const LoginPage(),
       // '/signup' : (context) => const SignupPage(),
     },

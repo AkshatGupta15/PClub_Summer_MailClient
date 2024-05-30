@@ -42,10 +42,10 @@ class DrawerApp extends StatelessWidget {
               SizedBox(
                 height: kPadding! - 15,
               ),
-              const Divider(
-                height: 2,
-                color: Colors.black54,
-              ),
+              // const Divider(
+              //   height: 2,
+              //   color: Colors.black54,
+              // ),
               SizedBox(
                 height: kPadding! - 15,
               ),
@@ -74,7 +74,7 @@ class DrawerItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: kPadding! -20, vertical: kPadding!-10),
+      padding: EdgeInsets.symmetric(horizontal: kPadding! -10, vertical: 0),
       margin: EdgeInsets.only(right:  kPadding!),
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.horizontal(right: Radius.circular(20)),

@@ -179,6 +179,40 @@ class _HomeScreenState extends State<HomeScreen> {
               SizedBox(
                 height: kPadding! - 10,
               ),
+
+              Expanded(
+                flex: 1,
+                child: ListView.builder(
+                  physics: const BouncingScrollPhysics(),
+                  itemCount: fetchMailList.length,
+                  itemBuilder: (context, index) {
+                    final mail = fetchMailList[index];
+                     final description = mail.decodeTextPlainPart()!.split('\r\n')[0];
+                      RegExp regex = RegExp(r'"([^"]+)"');
+                       String? fullName = regex.firstMatch(mail.from.toString())?.group(1);
+                       final time = mail.decodeDate().toString().split(" ")[1].substring(0,5);
+                    return InkWell(
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) {
+                            return MailDetailScreen(
+                              message: mail,
+                            );
+                          },
+                        ));
+                      },
+                      child: MailItemWidget(
+                        title: fullName!,
+                        description: mail.decodeSubject()!,
+                        content:description, // Assuming `content` is the text body
+                        time: time, // Assuming this method exists
+                        isRead: mail.isSeen,
+                      ),
+                    );
+                  },
+                ),
+              )
+              
               // Expanded(
               //   flex: 1,
               //   child: ListView.builder(

@@ -133,7 +133,7 @@ bool isImapServerSecure = false;
     await client.selectInbox();
     // fetch 10 most recent messages:
     final fetchResult = await client.fetchRecentMessages(
-        messageCount: 1, criteria: 'BODY.PEEK[]');
+        messageCount: 15, criteria: 'BODY.PEEK[]');
     // final List<MailItem> MailList = [];
     // return fetchResult.messages;
     // for (final message in fetchResult.messages) {
@@ -151,13 +151,18 @@ bool isImapServerSecure = false;
   }
 }
 void printMessage(MimeMessage message) {
+  print(message.decodeDate().toString().split(" ")[1].substring(0,5));
+  print("${message.from![0].toString()}");
+  // print("${message.internalDate}");
   print('from: ${message.from} with subject "${message.decodeSubject()}"');
   if (!message.isTextPlainMessage()) {
     print(' content-type: ${message.mediaType}');
   } else {
     final plainText = message.decodeTextPlainPart();
     if (plainText != null) {
+      // print(plainText.substring(0,40));
       final lines = plainText.split('\r\n');
+      // print(lines[);
       for (final line in lines) {
         if (line.startsWith('>')) {
           // break when quoted text starts
