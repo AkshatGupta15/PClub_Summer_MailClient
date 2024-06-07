@@ -5,12 +5,11 @@ class MailItemWidget extends StatelessWidget {
   const MailItemWidget({
     required this.title,
     required this.description,
-    required this.content,
     required this.time,
     required this.isRead,
     super.key,
   });
-  final String title, content, description, time;
+  final String title, description, time;
   final bool isRead;
 
   @override
@@ -71,13 +70,6 @@ class MailItemWidget extends StatelessWidget {
                     fontWeight: isRead ? FontWeight.w400 : FontWeight.w600,
                   ),
                 ),
-                // Text(
-                //   content,
-                //   style: TextStyle(
-                //     fontSize: 13,
-                //     fontWeight: isRead ? FontWeight.w400 : FontWeight.w600,
-                //   ),
-                // ),
               ],
             ),
           )
