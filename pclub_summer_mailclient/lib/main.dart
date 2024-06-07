@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pclub_summer_mailclient/Screens/Home_screen/home_screen.dart';
 import 'package:pclub_summer_mailclient/Screens/Login_SignUp_Page/login_page.dart';
-import 'package:pclub_summer_mailclient/getMails/mail.dart';
+import 'package:pclub_summer_mailclient/utils/mail.dart';
 // import 'package:pclub_summer_mailclient/Screens/Login_SignUp_Page/signup_page.dart';
 // import 'package:pclub_summer_mailclient/getMails/mail.dart';
 // import 'package:pclub_summer_mailclient/getMails/_TryFetching.dart';
